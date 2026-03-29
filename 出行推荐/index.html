@@ -597,6 +597,240 @@ function toggleActivity(el) {
   active.forEach(t => t.dataset.types.split('|').forEach(c => types.add(c)));
   state.poiTypes = types.size > 0 ? [...types].join('|') : '110000|080000';
 }
+
+// ============================================================
+// 7. POI 搜索模块
+// ============================================================
+async function searchPOI(radiusKm) {
+  const amapKey = getSetting(KEYS.amapKey);
+  if (!amapKey) throw new Error('请先填写高德 API Key');
+  const { lng, lat } = state.location;
+  const radius = radiusKm * 1000;
+  const types = state.poiTypes || '110000|080000';
+
+  const res = await fetch(
+    `https://restapi.amap.com/v3/place/around?key=${amapKey}` +
+    `&location=${lng},${lat}&radius=${radius}&types=${encodeURIComponent(types)}` +
+    `&output=json&offset=20`
+  );
+  const data = await res.json();
+  if (data.status !== '1') throw new Error(`高德 POI 搜索失败: ${data.info}`);
+  return data.pois || [];
+}
+
+function formatPOIList(pois) {
+  return pois.slice(0, 20).map((p, i) => {
+    const distKm = (Number(p.distance) / 1000).toFixed(1);
+    return `${i + 1}. ${p.name} | ${p.type.split(';')[0]} | ${distKm}km`;
+  }).join('\n');
+}
+
+// ============================================================
+// 8. AI 推荐模块
+// ============================================================
+function buildPrompt(poiList) {
+  const w = state.weather;
+  const transport = state.transport || '不限';
+  const activities = state.activities.length > 0 ? state.activities.join('、') : '不限';
+  const userText = document.getElementById('user-text').value.trim();
+  return `你是一个出行推荐助手。根据以下信息，从候选地点列表中挑选最合适的3-5个，并为每个生成一句推荐理由（30字以内，结合天气和用户意图）。
+
+当前信息：
+- 位置：${state.location.name}
+- 天气：${w.text}，${w.temp}°C，${w.windDir}${w.windScale}级
+- 出行方式：${transport}
+- 活动偏好：${activities}
+- 补充说明：${userText || '无'}
+
+候选地点（高德POI搜索结果，格式：序号. 名称 | 类别 | 距离km）：
+${poiList}
+
+请返回 JSON 格式，不要有其他文字：
+[{"name": "地点名", "reason": "推荐理由", "rank": 1}, ...]`;
+}
+
+async function callAI(prompt) {
+  const provider = getSetting(KEYS.aiProvider, 'deepseek');
+  const apiKey = getSetting(KEYS.aiKey);
+  if (!apiKey) throw new Error('请先在设置中填写 AI API Key');
+
+  if (provider === 'anthropic') {
+    const res = await fetch('https://api.anthropic.com/v1/messages', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'x-api-key': apiKey,
+        'anthropic-version': '2023-06-01',
+      },
+      body: JSON.stringify({
+        model: 'claude-haiku-4-5-20251001',
+        max_tokens: 1024,
+        messages: [{ role: 'user', content: prompt }],
+      }),
+    });
+    const data = await res.json();
+    if (data.error) throw new Error(data.error.message);
+    return data.content[0].text;
+  }
+
+  if (provider === 'gemini') {
+    const res = await fetch(
+      `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key=${apiKey}`,
+      {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          contents: [{ parts: [{ text: prompt }] }],
+        }),
+      }
+    );
+    const data = await res.json();
+    if (data.error) throw new Error(data.error.message);
+    return data.candidates[0].content.parts[0].text;
+  }
+
+  // DeepSeek 和通义千问：OpenAI 兼容格式
+  const endpoints = {
+    deepseek: 'https://api.deepseek.com/v1/chat/completions',
+    qwen: 'https://dashscope.aliyuncs.com/compatible-mode/v1/chat/completions',
+  };
+  const models = { deepseek: 'deepseek-chat', qwen: 'qwen-turbo' };
+  const res = await fetch(endpoints[provider], {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json', 'Authorization': `Bearer ${apiKey}` },
+    body: JSON.stringify({
+      model: models[provider],
+      messages: [{ role: 'user', content: prompt }],
+      temperature: 0.7,
+    }),
+  });
+  const data = await res.json();
+  if (data.error) throw new Error(data.error.message);
+  return data.choices[0].message.content;
+}
+
+function parseAIResponse(text) {
+  const match = text.match(/\[[\s\S]*\]/);
+  if (!match) throw new Error('AI 返回格式异常');
+  return JSON.parse(match[0]);
+}
+
+// ============================================================
+// 9. 结果渲染
+// ============================================================
+function renderResults(recommendations, pois) {
+  const container = document.getElementById('results-container');
+  if (recommendations.length === 0) {
+    container.innerHTML = '<div style="text-align:center;padding:40px;color:var(--text-muted);">未获取到推荐，请尝试扩大搜索范围</div>';
+    return;
+  }
+  const poiMap = {};
+  pois.forEach(p => { poiMap[p.name] = (Number(p.distance) / 1000).toFixed(1); });
+
+  container.innerHTML = recommendations
+    .sort((a, b) => a.rank - b.rank)
+    .map(item => {
+      const dist = poiMap[item.name] ? `${poiMap[item.name]} km` : '—';
+      return `
+        <div class="result-card">
+          <div class="result-card-title">
+            <div class="result-card-name">${item.name}</div>
+            <div class="result-card-dist">${dist}</div>
+          </div>
+          <div class="result-card-type">📍 推荐地点</div>
+          <div class="result-card-reason">${item.reason || ''}</div>
+        </div>
+      `;
+    }).join('');
+}
+
+function renderFallbackResults(pois) {
+  const container = document.getElementById('results-container');
+  container.innerHTML = `
+    <div style="background:#2a1a1a;border:1px solid #7f1d1d;border-radius:10px;padding:14px;margin-bottom:16px;font-size:0.82em;color:#fca5a5;">
+      ⚠ AI 推荐暂不可用，以下为附近地点列表
+    </div>
+  ` + pois.slice(0, 5).map(p => `
+    <div class="result-card">
+      <div class="result-card-title">
+        <div class="result-card-name">${p.name}</div>
+        <div class="result-card-dist">${(Number(p.distance)/1000).toFixed(1)} km</div>
+      </div>
+      <div class="result-card-type">📍 ${p.type.split(';')[0]}</div>
+    </div>
+  `).join('');
+}
+
+// ============================================================
+// 10. 主流程
+// ============================================================
+async function getRecommendations() {
+  if (!state.location) {
+    alert('请先获取位置（自动定位或手动输入）');
+    return;
+  }
+  if (!state.weather) {
+    alert('请先获取天气（点击"获取天气"或手动设置）');
+    return;
+  }
+
+  const btn = document.getElementById('recommend-btn');
+  const container = document.getElementById('results-container');
+  btn.disabled = true;
+  btn.textContent = '推荐中...';
+  container.innerHTML = '<div class="loading">正在搜索附近地点</div>';
+
+  const radius = Number(getSetting(KEYS.searchRadius, '20'));
+
+  try {
+    let pois;
+    try {
+      pois = await searchPOI(radius);
+    } catch (e) {
+      container.innerHTML = `
+        <div style="text-align:center;padding:30px;color:var(--text-muted);">
+          <div style="color:#f87171;margin-bottom:12px;">${e.message}</div>
+          <button class="btn btn-ghost" onclick="getRecommendations()">重试</button>
+        </div>`;
+      return;
+    }
+
+    if (pois.length === 0) {
+      container.innerHTML = `
+        <div style="text-align:center;padding:30px;color:var(--text-muted);">
+          <div style="margin-bottom:12px;">附近 ${radius}km 内未找到相关地点</div>
+          <button class="btn btn-ghost" onclick="expandSearch()">扩大至 50km 搜索</button>
+        </div>`;
+      return;
+    }
+
+    container.innerHTML = '<div class="loading">AI 正在分析推荐</div>';
+    const poiList = formatPOIList(pois);
+    const prompt = buildPrompt(poiList);
+
+    let recommendations;
+    try {
+      const raw = await callAI(prompt);
+      recommendations = parseAIResponse(raw);
+    } catch {
+      renderFallbackResults(pois);
+      return;
+    }
+
+    renderResults(recommendations, pois);
+
+  } finally {
+    btn.disabled = false;
+    btn.textContent = '✨ 获取 AI 推荐';
+  }
+}
+
+async function expandSearch() {
+  const oldRadius = getSetting(KEYS.searchRadius, '20');
+  setSetting(KEYS.searchRadius, '50');
+  await getRecommendations();
+  setSetting(KEYS.searchRadius, oldRadius);
+}
   </script>
 </body>
 </html>
