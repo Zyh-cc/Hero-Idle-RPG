@@ -670,6 +670,7 @@ async function callAI(prompt) {
     });
     const data = await res.json();
     if (data.error) throw new Error(data.error.message);
+    if (!data.content || data.content.length === 0) throw new Error('Anthropic 返回内容为空');
     return data.content[0].text;
   }
 
@@ -686,6 +687,7 @@ async function callAI(prompt) {
     );
     const data = await res.json();
     if (data.error) throw new Error(data.error.message);
+    if (!data.candidates || data.candidates.length === 0) throw new Error('Gemini 返回内容为空');
     return data.candidates[0].content.parts[0].text;
   }
 
@@ -744,11 +746,12 @@ function renderResults(recommendations, pois) {
     }).join('');
 }
 
-function renderFallbackResults(pois) {
+function renderFallbackResults(pois, errorMsg) {
   const container = document.getElementById('results-container');
+  const errDetail = errorMsg ? `<div style="margin-top:4px;opacity:0.7;">${errorMsg}</div>` : '';
   container.innerHTML = `
     <div style="background:#2a1a1a;border:1px solid #7f1d1d;border-radius:10px;padding:14px;margin-bottom:16px;font-size:0.82em;color:#fca5a5;">
-      ⚠ AI 推荐暂不可用，以下为附近地点列表
+      ⚠ AI 推荐暂不可用，以下为附近地点列表${errDetail}
     </div>
   ` + pois.slice(0, 5).map(p => `
     <div class="result-card">
@@ -764,7 +767,7 @@ function renderFallbackResults(pois) {
 // ============================================================
 // 10. 主流程
 // ============================================================
-async function getRecommendations() {
+async function getRecommendations(radiusOverride) {
   if (!state.location) {
     alert('请先获取位置（自动定位或手动输入）');
     return;
@@ -780,7 +783,7 @@ async function getRecommendations() {
   btn.textContent = '推荐中...';
   container.innerHTML = '<div class="loading">正在搜索附近地点</div>';
 
-  const radius = Number(getSetting(KEYS.searchRadius, '20'));
+  const radius = radiusOverride !== undefined ? radiusOverride : Number(getSetting(KEYS.searchRadius, '20'));
 
   try {
     let pois;
@@ -812,8 +815,8 @@ async function getRecommendations() {
     try {
       const raw = await callAI(prompt);
       recommendations = parseAIResponse(raw);
-    } catch {
-      renderFallbackResults(pois);
+    } catch (aiErr) {
+      renderFallbackResults(pois, aiErr.message);
       return;
     }
 
@@ -826,10 +829,7 @@ async function getRecommendations() {
 }
 
 async function expandSearch() {
-  const oldRadius = getSetting(KEYS.searchRadius, '20');
-  setSetting(KEYS.searchRadius, '50');
-  await getRecommendations();
-  setSetting(KEYS.searchRadius, oldRadius);
+  await getRecommendations(50);
 }
   </script>
 </body>
