@@ -353,6 +353,63 @@
     activities: [],    // string[]
     poiTypes: '',      // 高德 types 参数
   };
+
+// ============================================================
+// 2. localStorage 工具
+// ============================================================
+const KEYS = {
+  aiProvider: 'tr_ai_provider',
+  aiKey: 'tr_ai_key',
+  amapKey: 'tr_amap_key',
+  qweatherKey: 'tr_qweather_key',
+  searchRadius: 'tr_search_radius',
+  initialized: 'tr_initialized',
+};
+
+function getSetting(key, fallback = '') {
+  return localStorage.getItem(key) ?? fallback;
+}
+function setSetting(key, value) {
+  localStorage.setItem(key, value);
+}
+
+// ============================================================
+// 3. 设置面板
+// ============================================================
+function openSettings() {
+  document.getElementById('ai-provider').value = getSetting(KEYS.aiProvider, 'deepseek');
+  document.getElementById('ai-key').value = getSetting(KEYS.aiKey);
+  document.getElementById('amap-key').value = getSetting(KEYS.amapKey);
+  document.getElementById('qweather-key').value = getSetting(KEYS.qweatherKey);
+  document.getElementById('search-radius').value = getSetting(KEYS.searchRadius, '20');
+  document.getElementById('settings-modal').classList.remove('hidden');
+}
+
+function closeSettings() {
+  document.getElementById('settings-modal').classList.add('hidden');
+}
+
+function saveSettings() {
+  setSetting(KEYS.aiProvider, document.getElementById('ai-provider').value);
+  setSetting(KEYS.aiKey, document.getElementById('ai-key').value.trim());
+  setSetting(KEYS.amapKey, document.getElementById('amap-key').value.trim());
+  setSetting(KEYS.qweatherKey, document.getElementById('qweather-key').value.trim());
+  setSetting(KEYS.searchRadius, document.getElementById('search-radius').value || '20');
+  setSetting(KEYS.initialized, '1');
+  closeSettings();
+}
+
+// 首次打开自动弹出设置面板
+window.addEventListener('DOMContentLoaded', () => {
+  if (!getSetting(KEYS.initialized)) {
+    openSettings();
+  }
+});
+
+// 点击遮罩关闭
+document.getElementById('settings-modal').addEventListener('click', (e) => {
+  if (e.target === e.currentTarget) closeSettings();
+});
   </script>
 </body>
 </html>
