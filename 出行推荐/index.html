@@ -1,0 +1,358 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>出行推荐</title>
+  <style>
+    :root {
+      --bg: #1a1a2e;
+      --surface: #1e1e2e;
+      --surface2: #2a2a3e;
+      --border: #3a3a5c;
+      --accent: #6366f1;
+      --accent2: #8b5cf6;
+      --cyan: #06b6d4;
+      --text: #e2e8f0;
+      --text-muted: #64748b;
+      --text-dim: #94a3b8;
+      --radius: 14px;
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      min-height: 100vh;
+    }
+    nav {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 16px 24px;
+      background: var(--surface);
+      border-bottom: 1px solid var(--border);
+    }
+    nav h1 { font-size: 1.1em; font-weight: 700; }
+    #settings-btn {
+      background: var(--surface2);
+      border: 1px solid var(--border);
+      color: var(--text-dim);
+      padding: 7px 14px;
+      border-radius: 8px;
+      cursor: pointer;
+      font-size: 0.85em;
+    }
+    #settings-btn:hover { border-color: var(--accent); color: var(--text); }
+    main {
+      display: grid;
+      grid-template-columns: 1fr 1.1fr 1.3fr;
+      gap: 28px;
+      padding: 28px 24px;
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+    @media (max-width: 768px) {
+      main { grid-template-columns: 1fr; }
+    }
+    .step-card {
+      border-radius: 18px;
+      overflow: hidden;
+      border: 2px solid var(--border);
+    }
+    .step-header {
+      padding: 18px 24px;
+      font-weight: 700;
+      font-size: 1.05em;
+    }
+    .step-body {
+      padding: 24px;
+      background: var(--surface);
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+    }
+    .step-card:nth-child(1) { border-color: var(--accent); }
+    .step-card:nth-child(1) .step-header { background: var(--accent); }
+    .step-card:nth-child(2) { border-color: var(--accent2); }
+    .step-card:nth-child(2) .step-header { background: var(--accent2); }
+    .step-card:nth-child(3) { border-color: var(--cyan); }
+    .step-card:nth-child(3) .step-header { background: var(--cyan); color: #0f172a; }
+    .panel {
+      background: var(--surface2);
+      border-radius: var(--radius);
+      padding: 18px;
+    }
+    .panel-label {
+      font-size: 0.75em;
+      color: var(--text-muted);
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      margin-bottom: 10px;
+    }
+    .btn {
+      border: none;
+      border-radius: 10px;
+      padding: 10px 16px;
+      font-size: 0.9em;
+      cursor: pointer;
+      font-weight: 500;
+      transition: opacity 0.15s;
+    }
+    .btn:hover { opacity: 0.85; }
+    .btn-primary { background: var(--accent); color: white; width: 100%; }
+    .btn-ghost {
+      background: var(--surface2);
+      border: 1px solid var(--border);
+      color: var(--text-dim);
+    }
+    input[type="text"], input[type="password"], select {
+      background: #22223a;
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 10px 14px;
+      font-size: 0.88em;
+      color: var(--text);
+      width: 100%;
+    }
+    input:focus, select:focus {
+      outline: none;
+      border-color: var(--accent);
+    }
+    .tag-group { display: flex; flex-wrap: wrap; gap: 8px; }
+    .tag {
+      background: var(--surface2);
+      border: 1px solid var(--border);
+      color: var(--text-muted);
+      border-radius: 22px;
+      padding: 7px 16px;
+      font-size: 0.88em;
+      cursor: pointer;
+      transition: all 0.15s;
+      user-select: none;
+    }
+    .tag.active {
+      background: var(--accent2);
+      border-color: var(--accent2);
+      color: white;
+      font-weight: 500;
+    }
+    .result-card {
+      border-radius: var(--radius);
+      padding: 20px;
+      border: 1px solid transparent;
+    }
+    .result-card-title {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 6px;
+    }
+    .result-card-name { font-weight: 700; font-size: 1em; }
+    .result-card-dist {
+      border-radius: 8px;
+      padding: 4px 10px;
+      font-size: 0.78em;
+      font-weight: 600;
+    }
+    .result-card-type { font-size: 0.8em; color: var(--text-muted); margin-bottom: 10px; }
+    .result-card-reason { font-size: 0.86em; line-height: 1.6; }
+    .result-card:nth-child(3n+1) { background: #162532; border-color: #1e4a5e; }
+    .result-card:nth-child(3n+1) .result-card-dist { background: #1e4a5e; color: var(--cyan); }
+    .result-card:nth-child(3n+1) .result-card-reason { color: #7dd3c8; }
+    .result-card:nth-child(3n+2) { background: #1e1a30; border-color: #3b2e6e; }
+    .result-card:nth-child(3n+2) .result-card-dist { background: #2d1f5e; color: #a78bfa; }
+    .result-card:nth-child(3n+2) .result-card-reason { color: #c4b5fd; }
+    .result-card:nth-child(3n) { background: #1e2a1a; border-color: #3a5e2e; }
+    .result-card:nth-child(3n) .result-card-dist { background: #2a3e1e; color: #86efac; }
+    .result-card:nth-child(3n) .result-card-reason { color: #bbf7d0; }
+    .status-text { font-size: 0.8em; margin-top: 8px; }
+    .status-success { color: #7c7cff; }
+    .status-error { color: #f87171; }
+    .status-info { color: var(--text-muted); }
+    .loading { text-align: center; padding: 24px; color: var(--text-muted); font-size: 0.9em; }
+    .loading::after {
+      content: '';
+      display: inline-block;
+      width: 16px; height: 16px;
+      border: 2px solid var(--border);
+      border-top-color: var(--accent);
+      border-radius: 50%;
+      animation: spin 0.8s linear infinite;
+      margin-left: 8px;
+      vertical-align: middle;
+    }
+    @keyframes spin { to { transform: rotate(360deg); } }
+    .modal-overlay {
+      position: fixed; inset: 0;
+      background: rgba(0,0,0,0.7);
+      display: flex; align-items: center; justify-content: center;
+      z-index: 100;
+    }
+    .modal-overlay.hidden { display: none; }
+    .modal {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 20px;
+      padding: 32px;
+      width: 480px;
+      max-width: 95vw;
+      max-height: 90vh;
+      overflow-y: auto;
+    }
+    .modal h2 { margin-bottom: 24px; font-size: 1.1em; }
+    .form-group { margin-bottom: 18px; }
+    .form-group label {
+      display: block;
+      font-size: 0.82em;
+      color: var(--text-dim);
+      margin-bottom: 6px;
+    }
+    .modal-footer { display: flex; gap: 10px; margin-top: 24px; }
+    .btn-save { background: var(--accent); color: white; flex: 1; }
+  </style>
+</head>
+<body>
+
+  <nav>
+    <h1>🗺 出行推荐</h1>
+    <button id="settings-btn" onclick="openSettings()">⚙ 设置</button>
+  </nav>
+
+  <main>
+    <!-- 第 1 步：位置 & 天气 -->
+    <div class="step-card">
+      <div class="step-header">第 1 步 · 位置 &amp; 天气</div>
+      <div class="step-body">
+        <div class="panel">
+          <div class="panel-label">📍 当前位置</div>
+          <div style="display:flex;flex-direction:column;gap:8px;">
+            <button class="btn btn-ghost" onclick="getGPS()">🎯 自动定位</button>
+            <div style="text-align:center;font-size:0.78em;color:var(--text-muted);">— 或手动输入 —</div>
+            <div style="display:flex;gap:8px;">
+              <input type="text" id="city-input" placeholder="如：南京市江宁区" />
+              <button class="btn btn-ghost" style="white-space:nowrap;" onclick="geocodeCity()">确定</button>
+            </div>
+          </div>
+          <div id="location-status" class="status-text status-info"></div>
+        </div>
+        <div class="panel">
+          <div class="panel-label">🌤 今日天气</div>
+          <div id="weather-display">
+            <button class="btn btn-ghost" onclick="fetchWeather()" style="width:100%;">获取天气</button>
+          </div>
+          <div id="weather-status" class="status-text status-info"></div>
+          <div id="manual-weather-toggle" style="margin-top:10px;font-size:0.8em;color:var(--accent);cursor:pointer;display:none;" onclick="toggleManualWeather()">⚙ 手动设置天气</div>
+          <div id="manual-weather-panel" style="display:none;margin-top:10px;">
+            <select id="manual-weather-text">
+              <option value="晴">☀️ 晴</option>
+              <option value="多云">⛅ 多云</option>
+              <option value="阴">☁️ 阴</option>
+              <option value="小雨">🌧 小雨</option>
+              <option value="大雨">⛈ 大雨</option>
+              <option value="雪">❄️ 雪</option>
+            </select>
+            <div style="display:flex;gap:8px;margin-top:8px;">
+              <input type="text" id="manual-temp" placeholder="温度 如 22" style="width:80px;" />
+              <span style="align-self:center;color:var(--text-muted);">°C</span>
+              <button class="btn btn-ghost" onclick="applyManualWeather()">确定</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 第 2 步：出行想法 -->
+    <div class="step-card">
+      <div class="step-header">第 2 步 · 出行想法</div>
+      <div class="step-body">
+        <div>
+          <div class="panel-label">🚗 出行方式</div>
+          <div class="tag-group" id="transport-tags">
+            <div class="tag" data-value="开车" onclick="selectTransport(this)">🚗 开车</div>
+            <div class="tag" data-value="步行" onclick="selectTransport(this)">🚶 步行</div>
+            <div class="tag" data-value="公交" onclick="selectTransport(this)">🚌 公交</div>
+            <div class="tag" data-value="骑行" onclick="selectTransport(this)">🚲 骑行</div>
+          </div>
+        </div>
+        <div>
+          <div class="panel-label">🎯 活动类型（可多选）</div>
+          <div class="tag-group" id="activity-tags">
+            <div class="tag" data-value="自然风景" data-types="110000" onclick="toggleActivity(this)">🌿 自然风景</div>
+            <div class="tag" data-value="历史文化" data-types="110000|141200" onclick="toggleActivity(this)">🏛 历史文化</div>
+            <div class="tag" data-value="美食" data-types="050000" onclick="toggleActivity(this)">🍜 美食</div>
+            <div class="tag" data-value="购物" data-types="060000" onclick="toggleActivity(this)">🛍 购物</div>
+            <div class="tag" data-value="休闲" data-types="080000|110000" onclick="toggleActivity(this)">☕ 休闲</div>
+          </div>
+        </div>
+        <div>
+          <div class="panel-label">💬 补充说明（可选）</div>
+          <input type="text" id="user-text" placeholder="如：想找个安静的地方，不要人太多..." />
+        </div>
+        <button class="btn btn-primary" onclick="getRecommendations()" id="recommend-btn">
+          ✨ 获取 AI 推荐
+        </button>
+      </div>
+    </div>
+
+    <!-- 第 3 步：推荐结果 -->
+    <div class="step-card">
+      <div class="step-header">第 3 步 · 推荐结果</div>
+      <div class="step-body" id="results-container">
+        <div style="text-align:center;padding:40px 0;color:var(--text-muted);font-size:0.9em;">
+          完成左侧设置后点击「获取 AI 推荐」
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <!-- 设置弹窗 -->
+  <div class="modal-overlay hidden" id="settings-modal">
+    <div class="modal">
+      <h2>⚙ 设置</h2>
+      <div class="form-group">
+        <label>AI 提供商</label>
+        <select id="ai-provider">
+          <option value="deepseek">DeepSeek（推荐，国内直连）</option>
+          <option value="anthropic">Anthropic Claude</option>
+          <option value="qwen">通义千问</option>
+          <option value="gemini">Google Gemini</option>
+        </select>
+      </div>
+      <div class="form-group">
+        <label>AI API Key</label>
+        <input type="password" id="ai-key" placeholder="sk-..." />
+      </div>
+      <div class="form-group">
+        <label>高德地图 API Key</label>
+        <input type="password" id="amap-key" placeholder="高德开放平台 Web服务 Key" />
+      </div>
+      <div class="form-group">
+        <label>和风天气 API Key</label>
+        <input type="password" id="qweather-key" placeholder="和风天气开发版 Key" />
+      </div>
+      <div class="form-group">
+        <label>搜索半径（km，默认 20）</label>
+        <input type="text" id="search-radius" placeholder="20" />
+      </div>
+      <div class="modal-footer">
+        <button class="btn btn-ghost" onclick="closeSettings()">取消</button>
+        <button class="btn btn-save btn" onclick="saveSettings()">保存</button>
+      </div>
+    </div>
+  </div>
+
+  <script>
+  // ============================================================
+  // 1. 全局状态
+  // ============================================================
+  const state = {
+    location: null,    // { lng, lat, name }
+    weather: null,     // { text, temp, windDir, windScale, humidity }
+    transport: null,   // string
+    activities: [],    // string[]
+    poiTypes: '',      // 高德 types 参数
+  };
+  </script>
+</body>
+</html>
