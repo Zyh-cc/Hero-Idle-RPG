@@ -484,6 +484,119 @@ async function geocodeCity() {
     setLocationStatus('地理编码请求失败，请检查网络', 'error');
   }
 }
+
+// ============================================================
+// 5. 天气模块
+// ============================================================
+const WEATHER_ICONS = {
+  '晴': '☀️', '多云': '⛅', '阴': '☁️',
+  '小雨': '🌧', '中雨': '🌧', '大雨': '⛈', '暴雨': '⛈',
+  '雷阵雨': '⛈', '小雪': '❄️', '中雪': '❄️', '大雪': '❄️',
+  '雾': '🌫', '霾': '🌫',
+};
+
+function getWeatherIcon(text) {
+  for (const [k, v] of Object.entries(WEATHER_ICONS)) {
+    if (text.includes(k)) return v;
+  }
+  return '🌡';
+}
+
+function renderWeather(w) {
+  const icon = getWeatherIcon(w.text);
+  document.getElementById('weather-display').innerHTML = `
+    <div style="display:flex;align-items:center;gap:16px;">
+      <div style="font-size:3em;line-height:1;">${icon}</div>
+      <div>
+        <div style="color:#fbbf24;font-weight:700;font-size:1.1em;">${w.text} · ${w.temp}°C</div>
+        <div style="font-size:0.78em;color:var(--text-muted);margin-top:4px;">
+          湿度 ${w.humidity}% · ${w.windDir} ${w.windScale}级
+        </div>
+      </div>
+    </div>
+  `;
+  document.getElementById('manual-weather-toggle').style.display = 'block';
+}
+
+function setWeatherStatus(msg, type = 'info') {
+  const el = document.getElementById('weather-status');
+  el.textContent = msg;
+  el.className = `status-text status-${type}`;
+}
+
+async function fetchWeather() {
+  const qKey = getSetting(KEYS.qweatherKey);
+  if (!qKey) {
+    setWeatherStatus('未填写和风天气 Key，请手动设置天气', 'error');
+    document.getElementById('manual-weather-toggle').style.display = 'block';
+    return;
+  }
+  if (!state.location) {
+    setWeatherStatus('请先获取位置', 'error');
+    return;
+  }
+  setWeatherStatus('获取天气中...', 'info');
+  try {
+    const loc = `${state.location.lng},${state.location.lat}`;
+    const geoRes = await fetch(
+      `https://geoapi.qweather.com/v2/city/lookup?location=${encodeURIComponent(loc)}&key=${qKey}`
+    );
+    const geoData = await geoRes.json();
+    if (!geoData.location || geoData.location.length === 0) throw new Error('城市未找到');
+    const locationId = geoData.location[0].id;
+
+    const wxRes = await fetch(
+      `https://devapi.qweather.com/v7/weather/now?location=${locationId}&key=${qKey}`
+    );
+    const wxData = await wxRes.json();
+    if (wxData.code !== '200') throw new Error('天气 API 错误');
+    const now = wxData.now;
+    state.weather = {
+      text: now.text,
+      temp: now.temp,
+      windDir: now.windDir,
+      windScale: now.windScale,
+      humidity: now.humidity,
+    };
+    renderWeather(state.weather);
+    setWeatherStatus('', 'info');
+  } catch (e) {
+    setWeatherStatus(`天气获取失败 (${e.message})，请手动设置`, 'error');
+    document.getElementById('manual-weather-toggle').style.display = 'block';
+  }
+}
+
+function toggleManualWeather() {
+  const panel = document.getElementById('manual-weather-panel');
+  panel.style.display = panel.style.display === 'none' ? 'block' : 'none';
+}
+
+function applyManualWeather() {
+  const text = document.getElementById('manual-weather-text').value;
+  const temp = document.getElementById('manual-temp').value || '20';
+  state.weather = { text, temp, windDir: '微风', windScale: '1-2', humidity: '—' };
+  renderWeather(state.weather);
+  document.getElementById('manual-weather-panel').style.display = 'none';
+  setWeatherStatus('已手动设置天气', 'success');
+}
+
+// ============================================================
+// 6. 意图面板
+// ============================================================
+function selectTransport(el) {
+  document.querySelectorAll('#transport-tags .tag').forEach(t => t.classList.remove('active'));
+  el.classList.add('active');
+  state.transport = el.dataset.value;
+}
+
+function toggleActivity(el) {
+  el.classList.toggle('active');
+  const active = [...document.querySelectorAll('#activity-tags .tag.active')];
+  state.activities = active.map(t => t.dataset.value);
+  const types = new Set();
+  active.forEach(t => t.dataset.types.split('|').forEach(c => types.add(c)));
+  state.poiTypes = types.size > 0 ? [...types].join('|') : '110000|080000';
+}
   </script>
 </body>
 </html>
