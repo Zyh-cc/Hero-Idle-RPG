@@ -2,24 +2,24 @@
 <html lang="zh-CN">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>⚔️ 勇者挂机物语 v8.0.0</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<title>⚔️ 勇者挂机物语 v8.0.1</title>
 <meta name="description" content="勇者挂机物语（Hero Idle RPG）是一款中文像素风网页挂机 RPG。招募宠物和援军，在 4×4 棋盘上布阵，挑战六章首领。手机和电脑浏览器均可直接开玩。">
-<link rel="canonical" href="https://zyh-cc.github.io/hero-idle-rpg/">
+<link rel="canonical" href="https://zyh-cc.github.io/Hero-Idle-RPG/">
 <meta property="og:type" content="website">
 <meta property="og:locale" content="zh_CN">
 <meta property="og:title" content="勇者挂机物语｜像素挂机 RPG · 4×4 布阵">
 <meta property="og:description" content="勇者挂机物语（Hero Idle RPG）是一款中文像素风网页挂机 RPG。招募宠物和援军，在 4×4 棋盘上布阵，挑战六章首领。手机和电脑浏览器均可直接开玩。">
-<meta property="og:url" content="https://zyh-cc.github.io/hero-idle-rpg/">
-<meta property="og:image" content="https://zyh-cc.github.io/hero-idle-rpg/assets/social-preview.jpg">
+<meta property="og:url" content="https://zyh-cc.github.io/Hero-Idle-RPG/">
+<meta property="og:image" content="https://zyh-cc.github.io/Hero-Idle-RPG/assets/social-preview.jpg">
 <meta property="og:image:width" content="1280">
 <meta property="og:image:height" content="640">
 <meta property="og:image:alt" content="勇者挂机物语 v8 和亡灵墓穴的 4×4 像素战场">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:title" content="勇者挂机物语｜像素挂机 RPG · 4×4 布阵">
 <meta name="twitter:description" content="勇者挂机物语（Hero Idle RPG）是一款中文像素风网页挂机 RPG。招募宠物和援军，在 4×4 棋盘上布阵，挑战六章首领。手机和电脑浏览器均可直接开玩。">
-<meta name="twitter:image" content="https://zyh-cc.github.io/hero-idle-rpg/assets/social-preview.jpg">
-<script type="application/ld+json">{"@context":"https://schema.org","@type":"VideoGame","name":"勇者挂机物语","alternateName":"Hero Idle RPG","description":"勇者挂机物语（Hero Idle RPG）是一款中文像素风网页挂机 RPG。招募宠物和援军，在 4×4 棋盘上布阵，挑战六章首领。手机和电脑浏览器均可直接开玩。","url":"https://zyh-cc.github.io/hero-idle-rpg/","image":"https://zyh-cc.github.io/hero-idle-rpg/assets/social-preview.jpg","inLanguage":"zh-CN","genre":["Idle RPG","Auto Battler"],"gamePlatform":"Web browser","softwareVersion":"8.0.0","isAccessibleForFree":true}</script>
+<meta name="twitter:image" content="https://zyh-cc.github.io/Hero-Idle-RPG/assets/social-preview.jpg">
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"VideoGame","name":"勇者挂机物语","alternateName":"Hero Idle RPG","description":"勇者挂机物语（Hero Idle RPG）是一款中文像素风网页挂机 RPG。招募宠物和援军，在 4×4 棋盘上布阵，挑战六章首领。手机和电脑浏览器均可直接开玩。","url":"https://zyh-cc.github.io/Hero-Idle-RPG/","image":"https://zyh-cc.github.io/Hero-Idle-RPG/assets/social-preview.jpg","inLanguage":"zh-CN","genre":["Idle RPG","Auto Battler"],"gamePlatform":"Web browser","softwareVersion":"8.0.1","isAccessibleForFree":true}</script>
 <style>
 @import url('https://fonts.googleapis.com/css2?family=Press+Start+2P&family=Noto+Sans+SC:wght@300;400;500;700&family=Cinzel+Decorative:wght@700;900&display=swap');
 
@@ -1325,8 +1325,6 @@ button:focus-visible,summary:focus-visible,select:focus-visible{outline:2px soli
 @media(max-width:600px){#heroActor .battle-cast-name{left:0;translate:none;justify-items:start}}
 @keyframes battle-cast-fade{0%,76%{opacity:1}100%{opacity:0}}
 @media(prefers-reduced-motion:reduce){.battle-cast-name{animation:none}}
-#landscapeToggle{display:none}
-@media (pointer:coarse),(max-width:650px){#landscapeToggle{display:inline-flex;align-items:center;min-height:40px;white-space:nowrap}}
 @media(max-width:650px){
   .codex-grid{grid-template-columns:repeat(3,minmax(0,1fr));gap:7px}
   .codex-art{min-height:75px;padding:5px}
@@ -1335,19 +1333,6 @@ button:focus-visible,summary:focus-visible,select:focus-visible{outline:2px soli
   .codex-dialog header{padding:9px 12px}
   #codexBody{padding:12px}
   .battle-action.skill{font-size:15px}
-}
-.game-landscape main.gc{max-width:none;padding:8px;gap:6px}
-.game-landscape :is(.page-header,.command-panel){padding-block:4px;min-height:0}
-.game-landscape .arena .battle-scene{min-height:220px}
-.game-landscape .arena .battle-scene:has(#dpsPanel[open]){min-height:265px}
-.game-landscape .codex-grid{grid-template-columns:repeat(auto-fit,minmax(100px,1fr))}
-@media (orientation:portrait){
-  html.game-landscape{overflow:hidden}
-  .game-landscape main.gc{position:fixed;top:50%;left:50%;width:100vh;width:100dvh;height:100vw;transform:translate(-50%,-50%) rotate(90deg);overflow:auto;overscroll-behavior:contain}
-  .game-landscape dialog[open]{position:fixed;inset:auto;top:50%;left:50%;margin:0;max-width:90vh;max-width:90dvh;max-height:94vw;transform:translate(-50%,-50%) rotate(90deg)}
-  .game-landscape .skill-sheet{width:min(510px,90dvh)}
-  .game-landscape .codex-dialog{width:min(560px,90dvh)}
-  .game-landscape .arena .battle-scene{min-height:198px}
 }
 .battle-entities .enemy-side>.battle-unit[role=button]{cursor:pointer;border-radius:6px}
 .battle-entities .enemy-side>.battle-unit:focus-visible{outline:2px solid #ffe8ad;outline-offset:2px}
@@ -1359,15 +1344,6 @@ button:focus-visible,summary:focus-visible,select:focus-visible{outline:2px soli
   #heroActor .battle-unit-meta{font-size:10px;line-height:1.12;overflow:visible}
   #heroActor .hero-form-separator{display:none}
   #heroActor :is(#heroLevelLabel,#heroFormName){display:block;white-space:nowrap}
-}
-#landscapeExit{display:none}
-@media(orientation:portrait){
-  .game-landscape #landscapeToggle{display:none}
-  .game-landscape #landscapeExit{
-    display:block;position:fixed;z-index:800;top:max(8px,env(safe-area-inset-top));right:max(8px,env(safe-area-inset-right));
-    min-width:42px;min-height:84px;padding:6px;writing-mode:vertical-rl;font:750 13px/1.1 system-ui,sans-serif;
-    background:#1c4937;color:#fff7e7;border-color:#9ebcac
-  }
 }
 .monster-move-actions .save-btn,.codex-nav .save-btn{transition:none}
 
@@ -1448,7 +1424,6 @@ button:focus-visible,summary:focus-visible,select:focus-visible{outline:2px soli
 @media(prefers-reduced-motion:reduce){.battle-scene[data-renderer=canvas] canvas[data-monster-motion]{animation:none}}
 .battle-scene[data-renderer=three] :is(.ally-reserve,.enemy-reserve){background:#1b2e2f32;border:1px solid #e4eee128}
 .battle-scene[data-renderer=three] .battle-unit-name{color:#fff5dc;text-shadow:0 1px 2px #172621,1px 0 #172621,-1px 0 #172621,0 -1px #172621}
-.game-landscape .battle-unit-art>canvas{transform-origin:50% 85%}
 #attackPixelCanvas{isolation:isolate}
 .battle-scene[data-renderer=three] #heroActor .battle-unit-meta{line-height:1.08;overflow:visible}
 .battle-scene[data-renderer=three] #heroActor .hero-form-separator{display:none}
@@ -1557,13 +1532,6 @@ button:focus-visible,summary:focus-visible,select:focus-visible{outline:2px soli
   .brand-icon{width:27px;height:27px;flex:0 0 auto}
   .page-header .career-version{font-size:10px}
 }
-.game-landscape .game-toolbar{flex-direction:row;align-items:center}
-.game-landscape .game-toolbar .command-panel{margin-left:auto}
-.game-landscape .game-toolbar .tab-bar{display:flex}
-.game-landscape .game-toolbar .tab-btn{width:auto;padding-inline:8px}
-.game-landscape .arena .frontline-title{flex-basis:180px}
-.game-landscape .arena .arena-toolbar{width:auto}
-
 .arena .battle-scene .battle-entities{
   --formation-art:clamp(22px,7.3cqw,61px);
   --formation-line:clamp(55px,14.5cqw,112px);
@@ -1662,18 +1630,199 @@ button:focus-visible,summary:focus-visible,select:focus-visible{outline:2px soli
 #formationEditFooter label{display:flex;align-items:center;gap:5px}
 #formationEditFooter select{background:#e8f0df;color:#1d3c31;border:1px solid #a2bead;border-radius:4px;min-height:29px;font:inherit}
 .defeat-heading{display:flex;align-items:center;justify-content:space-between;gap:8px}
+.phone-only{display:none}
+#rotateGate{
+  width:min(350px,calc(100% - 32px));padding:26px 20px;margin:auto;
+  border:1px solid #6b9b88;border-radius:14px;background:#213e33;color:#f9f5e5;text-align:center;
+  box-shadow:0 18px 60px #0b23165c;
+}
+#rotateGate::backdrop{background:#102820}
+#rotateGate .rotate-device{width:64px;height:38px;border:3px solid #ebd79f;border-radius:8px;margin:0 auto 18px;position:relative}
+#rotateGate .rotate-device::before{content:'';position:absolute;inset:4px 8px;border:1px solid #95b9a7;border-radius:3px}
+#rotateGate h2{font:800 23px/1.2 system-ui,sans-serif}
+#rotateGate p{margin:9px 0 0;color:#d4e2d4;font:14px/1.55 system-ui,sans-serif}
+#rotateGate button{margin-top:16px;min-height:44px}
+html.phone-portrait,html.phone-portrait body{overflow:hidden}
+html.phone-portrait main.gc{visibility:hidden}
+html.phone-portrait :is(#tt,#statTooltip){display:none!important}
+
+html.phone-game:not(.phone-portrait),
+html.phone-game:not(.phone-portrait) body{height:100dvh;min-height:0;overflow:hidden;overscroll-behavior:none;background:#142a22}
+.phone-game:not(.phone-portrait) main.gc{
+  --phone-rail:clamp(56px,9.2vw,72px);
+  --phone-bar:44px;
+  --phone-surface:#18352b;
+  --phone-line:#46695a;
+  display:grid;grid-template-columns:var(--phone-rail) minmax(80px,1fr) minmax(0,1.7fr) auto;
+  grid-template-rows:var(--phone-bar) minmax(0,1fr);
+  gap:0;position:fixed;inset:0 0 auto;height:100vh;height:100dvh;max-width:none;margin:0;overflow:hidden;
+  padding:env(safe-area-inset-top) env(safe-area-inset-right) env(safe-area-inset-bottom) env(safe-area-inset-left);
+  background:#e9efe5;
+}
+.phone-game:not(.phone-portrait) :is(.page-header,.game-toolbar){display:contents}
+.phone-game:not(.phone-portrait) :is(.brand,.page-header-actions,.game-toolbar .command-panel){
+  min-width:0;align-self:stretch;margin:0;padding:0 7px;background:var(--phone-surface);border:0;border-radius:0;box-shadow:none;
+}
+.phone-game:not(.phone-portrait) .brand{grid-area:1 / 1 / 2 / 3;gap:6px;flex-wrap:nowrap}
+.phone-game:not(.phone-portrait) .brand .brand-icon{flex:0 0 25px;width:25px;height:25px;font-size:14px;border-radius:5px;color:#eed8a3}
+.phone-game:not(.phone-portrait) .brand h1{color:#fff1d1;font:800 clamp(13px,2vw,19px)/1.1 system-ui,sans-serif;white-space:nowrap}
+.phone-game:not(.phone-portrait) .brand .career-version,
+.phone-game:not(.phone-portrait) .page-header-actions>#homeGuideButton,
+.phone-game:not(.phone-portrait) .page-header-actions .save-full-label,
+.phone-game:not(.phone-portrait) .page-header-actions .save-short-label{display:none}
+.phone-game:not(.phone-portrait) .phone-only{display:initial}
+.phone-game:not(.phone-portrait) .page-header-actions{grid-area:1 / 4;display:flex;align-items:center;gap:0;padding-right:5px}
+.phone-game:not(.phone-portrait) .page-header-actions .save-menu>summary{
+  min-width:64px;min-height:40px;display:flex;align-items:center;justify-content:center;
+  border-color:#6b9480;background:#254b3d;color:#fff4da;font-size:13px
+}
+.phone-game:not(.phone-portrait) .save-menu-panel{
+  z-index:70;top:calc(100% + 4px);right:0;width:min(250px,62vw);max-height:calc(100dvh - 64px);
+  overflow:auto;overscroll-behavior:contain;
+}
+.phone-game:not(.phone-portrait) .save-menu-panel .save-btn{display:block;min-height:42px;width:100%}
+.phone-game:not(.phone-portrait) .save-menu-panel .save-btn[hidden]{display:none}
+.phone-game:not(.phone-portrait) .game-toolbar .command-panel{grid-area:1 / 3;display:flex;gap:7px;justify-content:flex-end;align-items:center}
+.phone-game:not(.phone-portrait) .clock-group{display:flex;min-width:0}
+.phone-game:not(.phone-portrait) .clock-group>span{display:none}
+.phone-game:not(.phone-portrait) .game-toolbar .timer-d{font:700 clamp(11px,2vw,16px)/1.2 system-ui,sans-serif;color:#d4e8d8;letter-spacing:.04em;font-variant-numeric:tabular-nums}
+.phone-game:not(.phone-portrait) .game-toolbar .run-controls{display:flex;gap:4px}
+.phone-game:not(.phone-portrait) .game-toolbar .fbtn{min-width:45px;min-height:40px;padding:3px 7px;border:1px solid #82a591;font-size:12px;border-radius:5px;white-space:nowrap}
+.phone-game:not(.phone-portrait) #focusBtn{min-width:76px;background:#d4e7c2;color:#17372a;font-weight:850}
+.phone-game:not(.phone-portrait) #focusBtn.active{background:#564b34;color:#fff0c9;border-color:#a99667}
+.phone-game:not(.phone-portrait) #speedBtn,.phone-game:not(.phone-portrait) #idleModeToggle{background:#244a3d;color:#edf6e6}
+.phone-game:not(.phone-portrait) #idleModeToggle[aria-pressed=true]{background:#3d624b;color:#fff4d4}
+.phone-game:not(.phone-portrait) #rebirthLabel{display:none}
+.phone-game:not(.phone-portrait) .game-toolbar .tab-bar{
+  grid-area:2 / 1;display:grid;grid-template-columns:1fr;grid-template-rows:repeat(5,minmax(0,1fr));gap:3px;
+  min-height:0;align-items:stretch;padding:5px 4px;background:#1d3c31;border:0;border-right:1px solid #4b6c5d;
+}
+.phone-game:not(.phone-portrait) .game-toolbar .tab-btn{
+  min-width:0;width:100%;min-height:0;padding:2px 1px;display:grid;grid-template-rows:auto auto;place-content:center;justify-items:center;gap:2px;
+  color:#e5efe3;background:transparent;border:1px solid transparent;border-radius:6px;font:700 12px/1.15 system-ui,sans-serif;white-space:nowrap;
+}
+.phone-game:not(.phone-portrait) .game-toolbar .tab-btn.active{background:#376252;border-color:#90b99c;color:#fff6d8}
+.phone-game:not(.phone-portrait) .game-toolbar .tab-btn[data-tab=bestiary]{display:none}
+.phone-nav-icon{width:16px;height:16px;display:block;text-align:center;color:#cfe3c5;font:700 16px/1 system-ui,sans-serif}
+.phone-game:not(.phone-portrait) .tab-content{grid-area:2 / 2 / 3 / -1;min-width:0;min-height:0;overflow:auto;overscroll-behavior:contain}
+.phone-game:not(.phone-portrait) #tab-battle{overflow:hidden}
+.phone-game:not(.phone-portrait) :is(#tab-battle .main-area,.battle-workspace,.battle-workspace>.arena){height:100%;min-height:0}
+.phone-game:not(.phone-portrait) #tab-battle .main-area{gap:0;display:block}
+.phone-game:not(.phone-portrait) .battle-workspace{display:block}
+.phone-game:not(.phone-portrait) .battle-workspace>.arena{
+  display:grid;grid-template-rows:34px minmax(0,1fr);gap:0;border:0;border-radius:0;overflow:hidden;
+}
+.phone-game:not(.phone-portrait) .arena .arena-header.frontline-strip{
+  display:flex;flex-wrap:nowrap;gap:7px;padding:0 5px 0 9px;overflow:hidden;background:#e9efe3;border-bottom-color:#829f90;
+}
+.phone-game:not(.phone-portrait) .arena .frontline-title{min-width:52px;flex:1 1 auto;display:grid;gap:1px}
+.phone-game:not(.phone-portrait) .arena .frontline-title h3{margin:0;font-size:12px;line-height:1.14;text-overflow:ellipsis;white-space:nowrap;overflow:hidden}
+.phone-game:not(.phone-portrait) .arena .frontline-title :is(#waveInd,#chapterProgress){font-size:10px;line-height:1.12;text-overflow:ellipsis;overflow:hidden;white-space:nowrap;margin:0}
+.phone-game:not(.phone-portrait) .arena :is(#chapterProgress,#worldLabel),.phone-game:not(.phone-portrait) .arena>.camp-strip,
+.phone-game:not(.phone-portrait) .arena>:is(.battle-actions,#battleLogOverlay){display:none}
+.phone-game:not(.phone-portrait) .arena .arena-toolbar{display:flex;flex-wrap:nowrap;gap:4px;width:auto;flex:0 0 auto}
+.phone-game:not(.phone-portrait) .arena-header .arena-toolbar .save-btn{min-height:29px;padding:2px 6px;font-size:11px;align-self:center}
+.phone-game:not(.phone-portrait) .arena-header .arena-toolbar .save-btn[hidden]{display:none}
+.phone-game:not(.phone-portrait) #chapterDifficultyBadge{padding:2px 6px;white-space:nowrap;font-size:10px}
+.phone-game:not(.phone-portrait) .arena .battle-scene,
+.phone-game:not(.phone-portrait) .arena .battle-scene:has(#dpsPanel[open]){
+  flex:unset;display:grid;grid-template: minmax(0,1fr) / minmax(0,1fr);height:100%;min-height:0;isolation:isolate;overflow:hidden
+}
+.phone-game:not(.phone-portrait) .arena .battle-scene .battle-entities{
+  --formation-art:64px;--formation-line:clamp(28px,19dvh,78px);
+  position:absolute;inset:0;margin:0;height:100%;min-height:0;padding:3px 5px 5px;gap:3px 7px;
+  grid-template-rows:minmax(0,1fr);align-items:stretch;align-self:stretch;
+}
+.phone-game:not(.phone-portrait) .arena .battle-scene .battle-entities:has(#formationEditFooter:not([hidden])){
+  grid-template-rows:minmax(0,1fr) auto;
+}
+.phone-game:not(.phone-portrait) .battle-entities :is(.ally-side,.hostile-side){
+  grid-template-rows:32px repeat(4,minmax(0,1fr));gap:2px;padding:2px 3px;min-height:0;align-content:stretch;
+}
+.phone-game:not(.phone-portrait) .formation-controls button{min-height:28px;padding:0 6px}
+.phone-game:not(.phone-portrait) .battle-entities .formation-label{font-size:11px}
+.phone-game:not(.phone-portrait) .arena .battle-entities .battle-unit{
+  grid-template-rows:minmax(0,1fr) 13px 4px 4px;gap:1px;padding:1px;min-height:0;
+}
+.phone-game:not(.phone-portrait) .arena .battle-entities .battle-unit-name{font-size:clamp(9px,1.7vw,12px);min-height:0}
+.phone-game:not(.phone-portrait) .arena .battle-entities .battle-unit-state{
+  position:absolute;top:0;right:1px;max-width:98%;min-height:0;font-size:8px;line-height:1.1;pointer-events:none;
+}
+.phone-game:not(.phone-portrait) .arena .battle-entities .battle-unit>.hp-bm{height:4px;width:calc(100% - 10px);min-height:0}
+.phone-game:not(.phone-portrait) .arena .battle-entities .battle-unit>.attack-charge{height:4px;width:calc(100% - 10px);min-height:0}
+.phone-game:not(.phone-portrait) .arena .battle-entities .battle-unit .battle-unit-art>canvas{
+  width:auto;height:100%;max-width:96%;max-height:64px;aspect-ratio:1;object-fit:contain;
+}
+.phone-game:not(.phone-portrait) .arena .battle-entities .battle-unit-art{min-height:0;overflow:visible}
+.phone-game:not(.phone-portrait) .arena .battle-entities .battle-cast-name{
+  left:50%;bottom:auto;top:0;translate:-50% -24%;max-width:122px;justify-items:center;font-size:10px;
+}
+.phone-game:not(.phone-portrait) .arena .battle-entities .battle-cast-name span{padding:1px 4px}
+.phone-game:not(.phone-portrait) .battle-scene .arena-monitor{
+  position:absolute;z-index:7;top:6px;right:43px;margin:0;max-width:calc(100% - 46px);width:max-content;
+}
+.phone-game:not(.phone-portrait) .battle-scene .arena-monitor:has(#dpsPanel[open]){
+  width:min(320px,calc(100% - 47px));
+}
+.phone-game:not(.phone-portrait) .arena-monitor #dpsPanel>summary{font-size:10px;min-height:27px;padding:4px 6px}
+.phone-game:not(.phone-portrait) .arena-monitor #dpsPanel .damage-scroll{block-size:clamp(65px,34dvh,155px)}
+.phone-game:not(.phone-portrait) .battle-scene #battleUnlockRegion{position:absolute;top:38px;inset-inline:8px;margin:0}
+.phone-game:not(.phone-portrait) #battleUnlockNotice{padding:3px 7px;font-size:11px}
+.phone-game:not(.phone-portrait) #formationSaved{top:37px}
+.phone-game:not(.phone-portrait) #formationEditFooter{min-width:0;gap:2px 6px;font-size:10px;padding:1px 4px;flex-wrap:nowrap}
+.phone-game:not(.phone-portrait) #formationEditFooter label{flex-shrink:0}
+.phone-game:not(.phone-portrait) #formationEditFooter select{min-height:23px}
+.phone-game:not(.phone-portrait) .formation-edit-cell{grid-template-rows:minmax(0,1fr) auto;padding:1px;align-content:stretch}
+.phone-game:not(.phone-portrait) .formation-edit-cell canvas{height:100%;width:auto;max-height:100%;max-width:96%;align-self:end}
+.phone-game:not(.phone-portrait) .formation-edit-cell span{font-size:10px;line-height:1.1}
+.phone-game:not(.phone-portrait) main.gc>.tab-content:not(#tab-battle){padding:7px 9px 10px;background:#e9efe5}
+.phone-game:not(.phone-portrait) #tab-hero .battle-inspector{grid-template-columns:repeat(2,minmax(0,1fr));align-items:start}
+.phone-game:not(.phone-portrait) .battle-inspector .gear-wrap .eg{grid-template-columns:repeat(2,minmax(0,1fr))}
+.phone-game:not(.phone-portrait) .codex-grid{grid-template-columns:repeat(auto-fill,minmax(112px,1fr))}
+.phone-game:not(.phone-portrait) main.gc>.site-footer{display:none}
+.phone-game:not(.phone-portrait) dialog[open]:not(#rotateGate){
+  max-height:calc(100dvh - env(safe-area-inset-top) - env(safe-area-inset-bottom) - 12px);
+  max-width:calc(100vw - env(safe-area-inset-left) - env(safe-area-inset-right) - 16px);
+  overscroll-behavior:contain;
+}
+.phone-game:not(.phone-portrait) .skill-sheet[open]{bottom:max(6px,env(safe-area-inset-bottom))}
+#phoneBattleInfo{width:min(500px,calc(100% - 24px));overflow:auto}
+#phoneBattleInfo p{margin:6px 0;color:#284d3c;font:13px/1.45 system-ui,sans-serif}
+#phoneBattleLog{margin:8px 0 0;padding-left:24px;font:13px/1.5 system-ui,sans-serif;color:#314f40}
+@media(max-height:330px){
+  .phone-game:not(.phone-portrait) main.gc{--phone-bar:39px}
+  .phone-game:not(.phone-portrait) .battle-workspace>.arena{grid-template-rows:30px minmax(0,1fr)}
+  .phone-game:not(.phone-portrait) .game-toolbar .fbtn,.phone-game:not(.phone-portrait) .page-header-actions .save-menu>summary{min-height:35px}
+  .phone-game:not(.phone-portrait) .arena .battle-entities .battle-unit{grid-template-rows:minmax(0,1fr) 11px 3px 3px}
+  .phone-game:not(.phone-portrait) .arena .battle-entities .battle-unit>.hp-bm,
+  .phone-game:not(.phone-portrait) .arena .battle-entities .battle-unit>.attack-charge{height:3px}
+}
+@media(max-width:590px){
+  .phone-game:not(.phone-portrait) #growthStatus{display:none}
+  .phone-game:not(.phone-portrait) .arena-toolbar #chapterDifficultyBadge{display:none}
+}
 </style>
 </head>
 <body>
+<dialog id="rotateGate" aria-labelledby="rotateTitle" aria-describedby="rotateHint">
+  <div class="rotate-device" aria-hidden="true"></div>
+  <h2 id="rotateTitle">转成横屏继续</h2>
+  <p id="rotateHint">横拿手机，整个战场和操作菜单就会出现在同一屏。</p>
+  <button type="button" class="save-btn" id="rotateFullscreen" onclick="togglePhoneFullscreen(true)" hidden>尝试全屏横屏</button>
+</dialog>
 <main class="gc">
 <header class="page-header">
-  <div class="brand"><span class="brand-icon" aria-hidden="true">⚔</span><h1>勇者挂机物语</h1><span class="career-version">v8.0.0 · 2.5D</span></div>
+  <div class="brand"><span class="brand-icon" aria-hidden="true">⚔</span><h1>勇者挂机物语</h1><span class="career-version">v8.0.1 · 2.5D</span></div>
   <div class="page-header-actions">
     <button type="button" class="save-btn" id="homeGuideButton" aria-label="新手指引" aria-haspopup="dialog" aria-controls="beginnerGuide" onclick="openBeginnerGuide()">
       <span class="home-guide-full">新手指引</span><span class="home-guide-short">指引</span>
     </button>
-    <details class="save-menu"><summary><span class="save-full-label">存档与设置</span><span class="save-short-label">设置</span></summary><div class="save-menu-panel">
-    <button type="button" class="save-btn" id="landscapeToggle" aria-pressed="false" onclick="toggleLandscape()">横屏</button>
+    <details class="save-menu"><summary><span class="save-full-label">存档与设置</span><span class="save-short-label">设置</span><span class="phone-only">菜单</span></summary><div class="save-menu-panel">
+    <button type="button" class="save-btn phone-only" onclick="openBeginnerGuide()">新手指引</button>
+    <button type="button" class="save-btn phone-only" onclick="switchTab('bestiary')">图鉴</button>
+    <button type="button" class="save-btn phone-only" onclick="openPhoneBattleInfo()">本章战况</button>
+    <button type="button" class="save-btn phone-only" onclick="document.getElementById('frontlineSettings').showModal()">冒险设置</button>
+    <button type="button" class="save-btn phone-only" id="phoneFullscreen" onclick="togglePhoneFullscreen()" hidden>切换全屏</button>
     <button type="button" class="save-btn" id="volumeSettingsButton" aria-haspopup="dialog" aria-controls="volumeSettings" onclick="openVolumeSettings()">声音设置</button>
     <button type="button" class="save-btn" onclick="saveGame()">保存进度</button>
     <button type="button" class="save-btn" onclick="loadGame()">读取存档</button>
@@ -1769,10 +1918,11 @@ button:focus-visible,summary:focus-visible,select:focus-visible{outline:2px soli
 </dialog>
 <div class="game-toolbar pb">
 <nav class="tab-bar" aria-label="游戏页面">
-  <button type="button" class="tab-btn active" data-tab="battle" aria-current="page" onclick="switchTab('battle')">战斗</button>
-  <button type="button" class="tab-btn" data-tab="skills" onclick="switchTab('skills')">技能</button>
-  <button type="button" class="tab-btn" data-tab="shop" onclick="switchTab('shop')">商店</button>
-  <button type="button" class="tab-btn" data-tab="pets" onclick="switchTab('pets')">宠物</button>
+  <button type="button" class="tab-btn active" data-tab="battle" aria-current="page" onclick="switchTab('battle')"><span class="phone-only phone-nav-icon" aria-hidden="true">⚔</span>战斗</button>
+  <button type="button" class="tab-btn phone-only" data-tab="hero" onclick="switchTab('hero')"><span class="phone-nav-icon" aria-hidden="true">♜</span>勇者</button>
+  <button type="button" class="tab-btn" data-tab="skills" onclick="switchTab('skills')"><span class="phone-only phone-nav-icon" aria-hidden="true">✦</span>技能</button>
+  <button type="button" class="tab-btn" data-tab="shop" onclick="switchTab('shop')"><span class="phone-only phone-nav-icon" aria-hidden="true">▰</span>商店</button>
+  <button type="button" class="tab-btn" data-tab="pets" onclick="switchTab('pets')"><span class="phone-only phone-nav-icon" aria-hidden="true">◆</span>宠物</button>
   <button type="button" class="tab-btn" data-tab="bestiary" onclick="switchTab('bestiary')">图鉴</button>
 </nav>
 <section class="command-panel" aria-label="冒险控制">
@@ -1873,6 +2023,7 @@ button:focus-visible,summary:focus-visible,select:focus-visible{outline:2px soli
   <strong>冒险祝福</strong><span id="growthStatus"></span>
 </button>
     <button type="button" id="chapterRewardButton" class="save-btn" hidden aria-haspopup="dialog" aria-controls="chapterRewardDialog" onclick="openChapterRewardDialog()">通关装备</button>
+    <button type="button" class="save-btn phone-only" onclick="openPhoneBattleInfo()">战况</button>
     <span id="worldLabel" class="world-state">春日 · 白昼</span>
   </div>
 </header>
@@ -2001,6 +2152,7 @@ button:focus-visible,summary:focus-visible,select:focus-visible{outline:2px soli
   </footer>
 </dialog>
 </div></div>
+<div class="tab-content phone-hero-tab" id="tab-hero" aria-label="勇者属性与装备"></div>
 <div class="tab-content" id="tab-skills">
   <section class="career-panel pb">
     <div class="career-heading">
@@ -2065,6 +2217,14 @@ button:focus-visible,summary:focus-visible,select:focus-visible{outline:2px soli
     <div id="bPanel-summon" hidden><div id="summonBookGrid"></div></div>
   </section>
 </div>
+<dialog id="phoneBattleInfo" class="rebirth-dialog" aria-labelledby="phoneBattleTitle">
+  <header class="formation-dialog-head"><h2 id="phoneBattleTitle">本章战况</h2>
+    <form method="dialog"><button type="submit" class="save-btn" autofocus>关闭</button></form>
+  </header>
+  <p id="phoneBattleProgress"></p>
+  <p id="phoneBattleCamp"></p>
+  <ul id="phoneBattleLog"></ul>
+</dialog>
 <dialog id="codexDetail" class="codex-dialog" aria-labelledby="codexTitle">
   <header>
     <div id="codexPortrait"></div><div><h2 id="codexTitle"></h2><p id="codexSubtitle"></p></div>
@@ -2072,16 +2232,14 @@ button:focus-visible,summary:focus-visible,select:focus-visible{outline:2px soli
   </header>
   <div id="codexBody"></div>
 </dialog>
-
-<footer style="padding:12px 16px;text-align:center;font-size:13px;color:#36554a">
-  <a href="https://github.com/Zyh-cc/hero-idle-rpg/blob/main/CHANGELOG.md" style="color:inherit">更新日志</a>
+<footer class="site-footer" style="padding:12px 16px;text-align:center;font-size:13px;color:#36554a">
+  <a href="https://github.com/Zyh-cc/Hero-Idle-RPG/blob/main/CHANGELOG.md" style="color:inherit">更新日志</a>
   <span aria-hidden="true"> · </span>
-  <a href="https://github.com/Zyh-cc/hero-idle-rpg/releases" style="color:inherit">下载与版本</a>
+  <a href="https://github.com/Zyh-cc/Hero-Idle-RPG/releases" style="color:inherit">下载与版本</a>
   <span aria-hidden="true"> · </span>
-  <a href="https://github.com/Zyh-cc/hero-idle-rpg#订阅更新与反馈" style="color:inherit">订阅更新</a>
+  <a href="https://github.com/Zyh-cc/Hero-Idle-RPG#订阅更新与反馈" style="color:inherit">订阅更新</a>
 </footer>
 </main>
-<button type="button" class="save-btn" id="landscapeExit" onclick="toggleLandscape()">退出横屏</button>
 <div class="stat-tooltip" id="statTooltip"></div>
 <script>
 // This is a complete rebuild. Due to the extreme length, the JS will be compact.
@@ -5564,6 +5722,7 @@ function initLandscape() {
 function genStars(){const c=document.getElementById('stars');for(let i=0;i<25;i++){const s=document.createElement('div');s.className='star';s.style.left=Math.random()*100+'%';s.style.top=Math.random()*100+'%';s.style.animationDelay=Math.random()*2+'s';c.appendChild(s)}}
 function fmtT(s){return String(s/3600|0).padStart(2,'0')+':'+String((s%3600)/60|0).padStart(2,'0')+':'+String(s%60).padStart(2,'0')}
 function switchTab(t) {
+  closePhoneMenu();
   if(t!=='battle'&&formationDraft)closeFormationSetup();
   if(t==='skills'||t==='shop')cancelChapterRetry();
   const tabs=['battle','skills','shop','pets','bestiary'];
@@ -8328,6 +8487,7 @@ function runAttackAffixes(target,baseDamage){
 }
 
 const BEGINNER_PAGES=[
+  {title:'横屏冒险',text:'手机横着拿。战场完整显示在一屏，侧栏可切换勇者、技能、商店和宠物，右上菜单里有图鉴与设置。',next:'点战场的「战况」查看章节进度和战斗记录。较长的列表可以在各自面板内滚动。',art:'bars',phone:true},
   {title:'选职业，再出发',text:'在「技能」页选战士、游侠或卫士。战士用重击降低敌人防御，游侠连射并给敌人加标记，卫士挨打后用盾牌反击。',
     next:'在「宠物」领取起手伙伴，回到「战斗」点「开始专注」。',art:'jobs',tab:'skills',button:'去选职业'},
   {title:'读懂两条状态条',text:'上面是生命条，下面是出手条。下面的条填满后就会自动出手。每格代表 0.5 秒，按游戏里的战斗速度计。',
@@ -8390,10 +8550,12 @@ function paintBeginnerArt(art,desk){
     labels.forEach((label,index)=>{if(index)desk.append(beginnerBadge('→'));desk.append(beginnerBadge(label,'guide-step'))});
   }
 }
+function visibleBeginnerPages(){return phoneLayout?BEGINNER_PAGES:BEGINNER_PAGES.filter(page=>!page.phone)}
 function renderBeginnerPage(){
-  const page=BEGINNER_PAGES[beginnerIndex];
+  const pages=visibleBeginnerPages();
+  const page=pages[beginnerIndex];
   document.getElementById('guidePageTitle').textContent=page.title;
-  document.getElementById('guidePageNumber').textContent=(beginnerIndex+1)+' / '+BEGINNER_PAGES.length;
+  document.getElementById('guidePageNumber').textContent=(beginnerIndex+1)+' / '+pages.length;
   document.getElementById('guidePageText').textContent=page.text;
   document.getElementById('guidePageNext').textContent=page.next;
   const art=document.getElementById('guidePageArt');
@@ -8402,7 +8564,7 @@ function renderBeginnerPage(){
   go.hidden=!page.tab;
   go.textContent=page.button||'';
   document.getElementById('guidePrevious').disabled=beginnerIndex===0;
-  document.getElementById('guideAdvance').textContent=beginnerIndex===BEGINNER_PAGES.length-1?'完成':'下一页';
+  document.getElementById('guideAdvance').textContent=beginnerIndex===pages.length-1?'完成':'下一页';
   document.getElementById('guidePageBody').scrollTop=0;
 }
 function openBeginnerGuide(){
@@ -8412,12 +8574,13 @@ function openBeginnerGuide(){
 }
 function pageBeginner(delta){
   const next=beginnerIndex+delta;
-  if(next===BEGINNER_PAGES.length){document.getElementById('beginnerGuide').close();return}
-  if(next<0||next>=BEGINNER_PAGES.length)return;
+  const pages=visibleBeginnerPages();
+  if(next===pages.length){document.getElementById('beginnerGuide').close();return}
+  if(next<0||next>=pages.length)return;
   beginnerIndex=next;renderBeginnerPage();
 }
 function openBeginnerTarget(){
-  const tab=BEGINNER_PAGES[beginnerIndex].tab;
+  const tab=visibleBeginnerPages()[beginnerIndex].tab;
   if(!tab)return;
   document.getElementById('beginnerGuide').close();
   switchTab(tab);
@@ -8671,7 +8834,7 @@ function chooseDefeatAction(action){
   if(action==='retry'){
     if(chapterCampOpen()){armBattleAudio();toggleFocus()}
   }else if(action==='gear'){
-    switchTab('battle');
+    switchTab(phoneLayout?'hero':'battle');
     document.getElementById('equipmentPanel').scrollIntoView({block:'start'});
   }else switchTab(action);
 }
@@ -14259,51 +14422,77 @@ function clearBattleActions(){
   activeCastLabels.clear();
   if(!suppressBattleEffects())document.getElementById('battleBasic').textContent='';
 }
-let landscapeMode=false;
-let landscapeFullscreen=false;
-function setLandscapeMode(enabled){
-  landscapeMode=enabled;
-  document.documentElement.classList.toggle('game-landscape',enabled);
-  const button=document.getElementById('landscapeToggle');
-  button.setAttribute('aria-pressed',String(enabled));
-  button.textContent=enabled?'退出横屏':'横屏';
-  requestAnimationFrame(()=>{
-    const shell=document.querySelector('main.gc');
-    if(enabled&&document.getElementById('tab-battle').classList.contains('active'))shell.scrollTop=0;
-    else if(!enabled)shell.scrollTop=0;
-    renderLandscape();
-  });
-}
-async function toggleLandscape(){
-  if(landscapeMode){
-    try{screen.orientation?.unlock?.()}catch{}
-    if(landscapeFullscreen&&document.fullscreenElement){
-      try{await document.exitFullscreen()}catch{}
+let phoneMedia,portraitMedia;
+let phoneLayout=false;
+let heroInspectorOrigin;
+
+function syncPhoneLayout(){
+  const doc=document.documentElement;
+  const gate=document.getElementById('rotateGate');
+  const isPhone=phoneMedia.matches;
+  const portrait=isPhone&&portraitMedia.matches;
+  if(isPhone!==phoneLayout){
+    const inspector=document.querySelector('.battle-inspector');
+    if(isPhone){
+      heroInspectorOrigin={parent:inspector.parentNode,next:inspector.nextSibling};
+      document.getElementById('tab-hero').append(inspector);
+    }else{
+      heroInspectorOrigin.parent.insertBefore(inspector,heroInspectorOrigin.next);
+      if(document.getElementById('tab-hero').classList.contains('active'))switchTab('battle');
     }
-    landscapeFullscreen=false;
-    setLandscapeMode(false);
+    phoneLayout=isPhone;
+  }
+  doc.classList.toggle('phone-game',isPhone);
+  doc.classList.toggle('phone-portrait',portrait);
+  if(portrait&&!gate.open)gate.showModal();
+  else if(!portrait&&gate.open)gate.close();
+  requestAnimationFrame(renderLandscape);
+}
+function closePhoneMenu(){
+  document.querySelector('.save-menu').open=false;
+}
+async function togglePhoneFullscreen(lock=false){
+  const doc=document.documentElement;
+  if(document.fullscreenElement&&!lock){
+    await document.exitFullscreen().catch(()=>{});
     return;
   }
-  setLandscapeMode(true);
-  if(matchMedia('(orientation: landscape)').matches||typeof screen.orientation?.lock!=='function'||!document.documentElement.requestFullscreen)return;
   try{
-    await document.documentElement.requestFullscreen({navigationUI:'hide'});
-    landscapeFullscreen=true;
-    if(!landscapeMode){await document.exitFullscreen();return}
-    await screen.orientation.lock('landscape');
+    if(!document.fullscreenElement)await doc.requestFullscreen({navigationUI:'hide'});
+    if(lock)await screen.orientation.lock('landscape');
   }catch{
-    if(landscapeFullscreen&&document.fullscreenElement){
-      landscapeFullscreen=false;
-      try{await document.exitFullscreen()}catch{}
+    if(lock&&portraitMedia.matches){
+      if(document.fullscreenElement)await document.exitFullscreen().catch(()=>{});
+      document.getElementById('rotateHint').textContent='请关闭系统的竖屏锁定，再将手机横过来。';
     }
   }
 }
-document.addEventListener('fullscreenchange',()=>{
-  if(landscapeFullscreen&&!document.fullscreenElement){
-    landscapeFullscreen=false;
-    setLandscapeMode(false);
-  }
-});
+function openPhoneBattleInfo(){
+  closePhoneMenu();
+  document.getElementById('phoneBattleProgress').textContent=['chapterHeading','waveInd','chapterDifficultyBadge','chapterProgress','worldLabel']
+    .map(id=>document.getElementById(id).textContent.trim()).filter(Boolean).join(' · ');
+  document.getElementById('phoneBattleCamp').textContent=chapterCampOpen()?document.getElementById('chapterDefeat').textContent:'';
+  const history=document.querySelectorAll('#battleLogOverlay .ll');
+  const list=document.getElementById('phoneBattleLog');
+  list.replaceChildren(...Array.from(history,item=>{
+    const row=document.createElement('li');
+    row.textContent=item.textContent;
+    return row;
+  }));
+  document.getElementById('phoneBattleInfo').showModal();
+}
+function initPhoneLayout(){
+  phoneMedia=matchMedia('(pointer: coarse) and (max-width:1050px) and (max-height:550px), (pointer: coarse) and (max-width:650px) and (orientation:portrait)');
+  portraitMedia=matchMedia('(orientation:portrait)');
+  const gate=document.getElementById('rotateGate');
+  gate.addEventListener('cancel',event=>event.preventDefault());
+  const full=Boolean(document.documentElement.requestFullscreen);
+  document.getElementById('phoneFullscreen').hidden=!full;
+  document.getElementById('rotateFullscreen').hidden=!full||typeof screen.orientation?.lock!=='function';
+  phoneMedia.addEventListener('change',syncPhoneLayout);
+  portraitMedia.addEventListener('change',syncPhoneLayout);
+  syncPhoneLayout();
+}
 
 function showSkillFlash(text,_style,source='勇者',actor=null){
   showBattleAction(source,text.replace(/^[^\p{L}\p{N}]+|[！!]+$/gu,''),false,actor);
@@ -15562,11 +15751,9 @@ function paintAttackPixels(now) {
 }
 function attackDrawingArea(canvas){
   const screen=canvas.getBoundingClientRect();
-  const turned=landscapeMode&&matchMedia('(orientation: portrait)').matches;
   const rect=node=>{
     const box=node.getBoundingClientRect();
-    return turned?{left:box.top-screen.top,top:screen.right-box.right,width:box.height,height:box.width}:
-      {left:box.left-screen.left,top:box.top-screen.top,width:box.width,height:box.height};
+    return {left:box.left-screen.left,top:box.top-screen.top,width:box.width,height:box.height};
   };
   const area=rect(canvas);
   if(!area.width||!area.height)return null;
@@ -15761,6 +15948,7 @@ if(document.getElementById('tab-skills').classList.contains('active')&&shownSkil
 const rl=document.getElementById('rebirthLabel');if(rl)rl.textContent=S.rebirthCount>0?('转生×'+S.rebirthCount+' | 点数:'+(S.rebirthPoints||0)):''}
 
 initFrontlineControls();
+initPhoneLayout();
 try{setParticleMode(localStorage.getItem(PARTICLE_MODE_KEY),false)}catch{}
 initRangerAudio();
 initBattleAudioSettings();
@@ -19658,7 +19846,6 @@ void main() {
   const surface=document.getElementById('battleCanvas3d');
   const fallback=document.getElementById('worldCanvas');
   const motion=window.matchMedia('(prefers-reduced-motion: reduce)');
-  const portrait=window.matchMedia('(orientation: portrait)');
   const BIOMES=[
     {sky:0x4a92bd,haze:0xffd9b9,far:0x7eaeb7,ridge:0x407471,ground:0x6e986b,road:0xc5a680,
       stone:0x809484,leaf:0x3d8066,accent:0xf4ca7c,night:0x152841,kind:'camp'},
@@ -20167,15 +20354,13 @@ void main() {
     actorFill.intensity=1.78-nightBlend*.29;
     actorFill.color.setHex(0xe0f3fc).lerp(color.setHex(0xb3c9ff),nightBlend);
     actorKey.intensity=.92-nightBlend*.23;
-    const turned=document.documentElement.classList.contains('game-landscape')&&portrait.matches;
     layout=frame.getBoundingClientRect();
     for(const [canvas,entry] of pixels){
       const {actor,shadow,unit}=entry;
       const rect=canvas.getBoundingClientRect();
-      const width=turned?rect.height:rect.width;
-      const height=turned?rect.width:rect.height;
-      const x=(turned?rect.top-layout.top:rect.left-layout.left)+width*.5;
-      const y=(turned?layout.right-rect.right:rect.top-layout.top)+height;
+      const {width,height}=rect;
+      const x=rect.left-layout.left+width*.5;
+      const y=rect.top-layout.top+height;
       const visible=Boolean(width&&height&&x>0&&x<viewportWidth&&y>0&&y-height<viewportHeight);
       actor.visible=shadow.visible=visible;
       if(!visible)continue;
