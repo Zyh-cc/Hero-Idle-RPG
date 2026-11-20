@@ -1,0 +1,21 @@
+name: 游戏反馈
+description: 报告卡关、显示、存档问题，或提出玩法建议
+title: "[游戏反馈] "
+body:
+  - type: textarea
+    id: detail
+    attributes:
+      label: 你遇到了什么？
+      description: 可以写下当时的操作和预期，也可以附截图。
+    validations:
+      required: true
+  - type: input
+    id: battle
+    attributes:
+      label: 游戏情况
+      placeholder: 例如 v8.0.0，游侠，普通，2-5
+  - type: input
+    id: environment
+    attributes:
+      label: 设备与浏览器
+      placeholder: 例如 Android Chrome，手机竖屏

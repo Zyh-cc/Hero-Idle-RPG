@@ -1,14 +1,5 @@
 # 勇者挂机物语
 
-[在线试玩第一章「哥布林营地」](https://zyh-cc.github.io/hero-idle-rpg/%E5%8B%87%E8%80%85%E6%8C%82%E6%9C%BA%E7%89%A9%E8%AF%AD/%E5%8B%87%E8%80%85%E6%8C%82%E6%9C%BA%E7%89%A9%E8%AF%AD3.0_redesigned.html?trial=chapter1)
+**[直接玩 v8.0.0](https://zyh-cc.github.io/hero-idle-rpg/)** · [离线 HTML](https://github.com/Zyh-cc/hero-idle-rpg/releases/latest) · [逐版更新日志](../CHANGELOG.md)
 
-像素风网页挂机 RPG。战斗自动进行，可切换 ×1、×2、×3、×5 倍速，也可展开实时输出，查看勇者、召唤物和宠物的伤害。
-
-## 第一章试玩
-
-1. 从 1-1 出发，通过第 2 关后选择突击武器或板甲。
-2. 主线阵亡后进入整备营地，经验、技能点、装备、金币和宠物会保留。营地可加点和买一件补给。
-3. 回到 1-1 再挑战。头目会预告破阵重击，主击勇者并溅射召唤物。
-4. 击败头目完成首章试玩。继续出发可体验原有的后续波次。
-
-试玩链接使用独立的浏览器本地存档。直接打开 `勇者挂机物语3.0_redesigned.html` 可用普通存档进入游戏。两种入口均无需安装。
+旧版试玩和历次小版本可从更新日志打开对应文件，也可一次下载。[历史版本 ZIP](https://github.com/Zyh-cc/hero-idle-rpg/archive/refs/heads/archive/versions.zip)
